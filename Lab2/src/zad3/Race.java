@@ -75,7 +75,7 @@ class Race {
     }
 
     public static void main(String[] args) throws InterruptedException {
-        for(int i=0;i<100;i++){
+        for(int i=0;i<1000;i++){
             int counter = testThreads();
             if(histogram.containsKey(counter)){
                 int currentValue = histogram.get(counter);
