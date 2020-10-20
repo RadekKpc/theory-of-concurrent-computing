@@ -1,4 +1,4 @@
-package zad3;
+package producersconsumers.zad2;
 
 public class Semaphore {
     private boolean state;
