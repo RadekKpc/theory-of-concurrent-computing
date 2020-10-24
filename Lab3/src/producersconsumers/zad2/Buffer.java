@@ -1,12 +1,16 @@
 package producersconsumers.zad2;
 
+import java.util.concurrent.Semaphore;
+
 class Buffer {
 
-  private int[] buffer;
-  private boolean[] canWrite;
+  private final int[] buffer;
+  private final boolean[] canWrite;
   private final int size;
-  private Semaphore readSemaphore;
-  private Semaphore writeSemaphore;
+  private final Semaphore readSemaphore;
+  private final Semaphore writeSemaphore;
+  private final Semaphore indexSemaphore;
+
   public Buffer(int size){
     this.size = size;
     buffer = new int[size];
@@ -16,76 +20,85 @@ class Buffer {
       buffer[i]= 0;
       canWrite[i] = true;
     }
-    writeSemaphore = new Semaphore(false);
-    readSemaphore = new Semaphore(false);
+    writeSemaphore = new Semaphore(size-1);
+    indexSemaphore = new Semaphore(1);
+    readSemaphore = new Semaphore(0);
   }
-
-  /** return false if all fields of buffor are not avaiable to write */
-  /** It checks is at least one true in canWirte */
-  private boolean canWrite(){
-
-      for (int i = 0; i< size; i++) {
-        if(canWrite[i]){
-          return true;
-        }
-      }
-      return false;
-    }
 
     private int findFieldToWrite(){
       for(int i=0;i<size;i++){
           if(canWrite[i]){
+            canWrite[i] = false;
             return i;
           }
       }
-      throw new IllegalStateException("at least one files should be free");
+      throw new IllegalStateException("at least one field should be free to write");
 
     }
 
     private int findFieldToRead(){
       for(int i=0;i<size;i++){
         if(!canWrite[i]){
+          canWrite[i] = true;
           return i;
         }
       }
-      throw new IllegalStateException("at least one files should be free");
+      throw new IllegalStateException("at least one filed should be free to read");
     }
 
-  /** return false if all fields of buffor are not avaiable to write */
-  /** It checks is at least one false in canWirte */
-  private boolean canRead(){
-    for (int i = 0; i< size; i++) {
-      if(!canWrite[i]){
-        return true;
-      }
-    }
-    return false;
-  }
+
 
   public void put(int value) {
 
-    if (!canWrite()){
-      writeSemaphore.P();
+    try {
+      writeSemaphore.acquire();
+    } catch (InterruptedException e) {
+      e.printStackTrace();
     }
 
-    int index = findFieldToWrite();
-    buffer[index] = value;
-    canWrite[index] = false;
-    readSemaphore.V();
+    try {
+      indexSemaphore.acquire();
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+
+
+      int index = findFieldToWrite();
+
+      indexSemaphore.release();
+
+      buffer[index] = value;
+
+
+    readSemaphore.release();
 
   }
 
 
-  public int get() {
+  public int get(){
 
-    if(!canRead()){
-      readSemaphore.P();
+    try {
+      readSemaphore.acquire();
+
+    } catch (InterruptedException e) {
+      e.printStackTrace();
     }
 
-    int index = findFieldToRead();
-    canWrite[index] = true;
-    int result = buffer[index];
-    writeSemaphore.V();
-    return result;
+
+    try {
+      indexSemaphore.acquire();
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+
+      int index = findFieldToRead();
+
+
+      indexSemaphore.release();
+      int result = buffer[index];
+      writeSemaphore.release();
+
+      return result;
+
   }
 }

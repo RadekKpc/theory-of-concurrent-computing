@@ -1,7 +1,7 @@
 package producersconsumers.zad2;
 
 class Consumer extends Thread {
-	private Buffer _buf;
+	private final Buffer _buf;
 
 	public Consumer(Buffer buffer){
 		super();
@@ -12,6 +12,7 @@ class Consumer extends Thread {
 	  for (int i = 0; i < 100; ++i) {
 
 		  System.out.println(_buf.get());
+
 	  }
 	}
 }
