@@ -18,7 +18,7 @@ class Buffer {
     countOfOperations = new Semaphore[size];
     for(int i=0;i< processesCount;i++){
       if(i == firstProcessNumber){
-        countOfOperations[i] = new Semaphore(size-1);
+        countOfOperations[i] = new Semaphore(size);
       }
       else {
         countOfOperations[i] = new Semaphore(0);
