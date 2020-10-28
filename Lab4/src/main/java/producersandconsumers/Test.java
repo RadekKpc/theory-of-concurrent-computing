@@ -26,7 +26,7 @@ public class Test {
     public static void main(String[] args) {
         System.out.println("Compare java monitors vs concurrency utilities");
         final int M = 30;
-        final int produceNumber = 10;
+        final int produceNumber = 10000;
         long[][] libTimes = new long[M][M];
         long[][] standardTimes = new long[M][M];
 
@@ -39,7 +39,7 @@ public class Test {
                 LibBuffer libBuffer = new LibBuffer(M);
                 StandardBuffer standardBuffer = new StandardBuffer(M);
 
-//                rozdzielenie rpacy pomiędzy wątki, tyle ile producenci wyprodukują konsumęci musza przetworzyć
+//                Spread operations between consumers
                 int[] countOfConsumersOperations = new int[consumers];
                 for(int i =0;i<consumers;i++){
                     countOfConsumersOperations[i] = 0;
@@ -140,7 +140,7 @@ public class Test {
 // Create a chart and add the surface
         Chart chart = new AWTChart(Quality.Advanced);
         chart.add(surface);
-        chart.open(surfaceName, 1000, 1000);
+        chart.open(surfaceName, 600, 600);
     }
 
     private static void calculateAverage(long[][] tab, int M, String info){
