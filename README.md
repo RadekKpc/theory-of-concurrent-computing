@@ -1,3 +1,3 @@
 # theory-of-concurrent-computing
 
-[Lab1](labolatory 1)
+[Labolatory 1](https://github.com/RadekKpc/theory-of-concurrent-computing/tree/main/Lab1/src)
