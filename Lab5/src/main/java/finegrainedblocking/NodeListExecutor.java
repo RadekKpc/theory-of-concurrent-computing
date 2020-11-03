@@ -15,10 +15,9 @@ public class NodeListExecutor extends Thread {
     public void run() {
 
         for(int i=0;i< operations;i++){
-            int ran = (int) (Math.random() * 20);
-            list.contains(i);
             list.add(i);
-            list.remove(ran);
+            list.contains(i);
+
         }
     }
 }

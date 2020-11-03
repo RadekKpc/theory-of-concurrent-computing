@@ -26,10 +26,10 @@ public class TestFineGrainedBlocking {
 
         final int operations = 1;
         final int minCost = 1;
-        final int maxCost = 100;
+        final int maxCost = 1;
         final int costStep = 1;
-        final int minExecutors = 10;
-        final int maxExecutors = 10;
+        final int minExecutors = 100;
+        final int maxExecutors = 100;
 
         final int countOfCost = maxCost - minCost + 1;
         final int countOfExecutors = maxExecutors - minExecutors + 1;
