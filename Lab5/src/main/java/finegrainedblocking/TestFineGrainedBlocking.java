@@ -1,8 +1,5 @@
-package readersandwriters;
+package finegrainedblocking;
 
-import finegrainedblocking.NodeList;
-import finegrainedblocking.NodeListMultipleLocks;
-import finegrainedblocking.NodeListWithOneLock;
 import org.jzy3d.chart.AWTChart;
 import org.jzy3d.chart.Chart;
 import org.jzy3d.colors.Color;
@@ -20,32 +17,56 @@ import java.util.Arrays;
 
 import static java.lang.Math.max;
 
-public class TestReadersAndWriters {
+public class TestFineGrainedBlocking {
 
     public static void main(String[] args) {
 
-        final int minReaders =10;
-        final int maxReaders = 100;
-        final int minWriters = 1;
-        final int maxWriters = 10;
-        final int writers = maxWriters - minWriters;
-        final int readers = maxReaders - minReaders;
+//        za zasadne uznam zbadanie wydajności list w zależności nie tylko od kosztu ale również od ilośći wątków obsługujących ta listę, gdyż dla jedengo wątku nie ma to sensu,
+//        zajmuje on po porstu cała kolejke, przewaga kolejni z wieloma blokadami polega włąsśnie na wielodostepie zatem zbadam tez w zaleznosci od roznej liczby wątków.
 
-        long[][] oneLock = new long[writers][writers];
-        long[][] multipleLocks = new long[writers][readers];
+        final int operations = 1;
+        final int minCost = 1;
+        final int maxCost = 100;
+        final int costStep = 1;
+        final int minExecutors = 10;
+        final int maxExecutors = 10;
 
+        final int countOfCost = maxCost - minCost + 1;
+        final int countOfExecutors = maxExecutors - minExecutors + 1;
 
-        for(int r = 0; r< writers; r++){
-            for(int w = 0; w < writers; w++){
-                ArrayList<Thread> oneLockThreads = new ArrayList<Thread>();
-                ArrayList<Thread> multipleLocksThreads = new ArrayList<Thread>();
+        long[][] oneLock = new long[countOfCost][countOfExecutors];
+        long[][] multipleLocks = new long[countOfCost][countOfExecutors];
 
-//                NodeList oneLockList = new NodeListWithOneLock();
-//                NodeList multipleLocksList = new NodeListMultipleLocks();
+        for(int cost=minCost;cost<=maxCost;cost+=costStep){
+            for(int ex =minExecutors; ex <= maxExecutors; ex++) {
+
+                ArrayList<Thread> executorsOneLock = new ArrayList<>();
+                ArrayList<Thread> executorsMultipleLocks = new ArrayList<>();
+
+                NodeList oneLockList = new NodeListWithOneLock(cost);
+                NodeList multipleLocksList = new NodeListMultipleLocks(cost);
+
+                for (int i = 0; i < ex; i++) {
+                    executorsOneLock.add(new NodeListExecutor(oneLockList, operations));
+                    executorsMultipleLocks.add(new NodeListExecutor(multipleLocksList, operations));
+                }
+
+                oneLock[cost - minCost][ex - minExecutors] = measureTime(executorsOneLock);
+                multipleLocks[cost - minCost][ex - minExecutors] = measureTime(executorsMultipleLocks);
             }
-        }
-    }
 
+        }
+
+        printResult(oneLock,countOfCost,countOfExecutors);
+        printResult(multipleLocks,countOfCost,countOfExecutors);
+
+        calculateAverage(oneLock,countOfCost,countOfExecutors,"One Lock");
+        calculateAverage(multipleLocks,countOfCost,countOfExecutors,"Multiple Lock");
+
+        create3dPlot(oneLock,countOfCost,countOfExecutors,"One Lock \n t = time = f(koszt,liczba_watków)");
+        create3dPlot(multipleLocks,countOfCost,countOfExecutors,"Multiple Lock \n t = time = f(koszt,liczba_watków)");
+
+    }
     private static void printResult(long[][] table, int X,int Y){
         for(int i=0;i<X;i++){
             System.out.println();

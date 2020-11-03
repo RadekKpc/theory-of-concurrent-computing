@@ -1,4 +1,4 @@
-package readersandwriters;
+package finegrainedblocking;
 
 public interface NodeList {
 

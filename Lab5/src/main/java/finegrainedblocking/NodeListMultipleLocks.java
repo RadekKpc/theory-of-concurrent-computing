@@ -1,68 +1,80 @@
-package readersandwriters;
+package finegrainedblocking;
 
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
-
-public class NodeListWithOneLock implements NodeList {
+public class NodeListMultipleLocks implements NodeList {
 
     private final Node nodeHead;
-    private final Lock lock = new ReentrantLock();
-    public NodeListWithOneLock() {
-        this.nodeHead = new Node(null,null);
+    private final int cost;
+
+    public NodeListMultipleLocks(int cost) {
+        this.nodeHead = new Node(null,null,cost);
+        this.cost = cost;
     }
 
     @Override
     public boolean contains(Object o){
-
-        lock.lock();
-
         Node pointer = nodeHead;
+
+        pointer.lock();
         Node nextPointer = pointer.getNext();
 
         while (pointer.hasNext()){
+            nextPointer.lock();
             if(nextPointer.getNode().equals(o)){
+                pointer.unlock();
+                nextPointer.unlock();
                 return true;
             }
+            Node tmp = pointer;
             pointer = pointer.getNext();
+            tmp.unlock();
             nextPointer = nextPointer.getNext();
         }
-        lock.unlock();
+        pointer.unlock();
         return false;
     }
 
     @Override
     public boolean remove(Object o){
-
-        lock.lock();
         Node pointer = nodeHead;
+
+        pointer.lock();
         Node nextPointer = pointer.getNext();
 
         while (pointer.hasNext()){
+            nextPointer.lock();
             if(nextPointer.getNode().equals(o)){
                 pointer.setNext(nextPointer.getNext());
+                pointer.unlock();
+                nextPointer.unlock();
                 return true;
             }
+            Node tmp = pointer;
             pointer = pointer.getNext();
+            tmp.unlock();
             nextPointer = nextPointer.getNext();
         }
-        lock.unlock();
+        pointer.unlock();
         return false;
     }
 
     @Override
     public boolean add(Object o){
 
-        lock.lock();
         Node pointer = nodeHead;
+
+        pointer.lock();
         Node nextPointer = pointer.getNext();
 
         while (pointer.hasNext()){
+            nextPointer.lock();
+            Node tmp = pointer;
             pointer = pointer.getNext();
+            tmp.unlock();
             nextPointer = nextPointer.getNext();
         }
 
-        pointer.setNext(new Node(o,null));
-        lock.unlock();
+        pointer.setNext(new Node(o,null,cost));
+        pointer.unlock();
         return true;
     }
 
