@@ -28,22 +28,35 @@ public class TestReadersAndWriters {
         final int maxReaders = 100;
         final int minWriters = 1;
         final int maxWriters = 10;
-        final int writers = maxWriters - minWriters;
-        final int readers = maxReaders - minReaders;
+        final int writers = maxWriters - minWriters + 1;
+        final int readers = maxReaders - minReaders + 1;
+        final int bufferSize = 10;
+        final int countOfReaderOperations = 10;
+        final int countOfWriterOperations = 10;
+        long[][] measurement = new long[writers][readers];
+        final long readTime = 10;
+        final long writeTime = 100;
 
-        long[][] oneLock = new long[writers][writers];
-        long[][] multipleLocks = new long[writers][readers];
 
+        for(int r = minReaders; r<= maxReaders; r++){
+            for(int w = minWriters; w <= maxWriters; w++){
+                ArrayList<Thread> threads = new ArrayList<Thread>();
 
-        for(int r = 0; r< writers; r++){
-            for(int w = 0; w < writers; w++){
-                ArrayList<Thread> oneLockThreads = new ArrayList<Thread>();
-                ArrayList<Thread> multipleLocksThreads = new ArrayList<Thread>();
+                Buffer buffer = new Buffer(bufferSize,readTime,writeTime);
 
-//                NodeList oneLockList = new NodeListWithOneLock();
-//                NodeList multipleLocksList = new NodeListMultipleLocks();
+                for(int i=0;i<r;i++){
+                    threads.add(new Reader(buffer,countOfReaderOperations));
+                }
+                for(int i=0;i<w;i++){
+                    threads.add(new Writer(buffer,countOfWriterOperations));
+                }
+
+                measurement[w - minWriters][r - minReaders] = measureTime(threads);
             }
+            System.out.println(((double)r/readers)*100 + "%");
         }
+
+        create3dPlot(measurement,writers,readers,"The time in function of readers and writers");
     }
 
     private static void printResult(long[][] table, int X,int Y){

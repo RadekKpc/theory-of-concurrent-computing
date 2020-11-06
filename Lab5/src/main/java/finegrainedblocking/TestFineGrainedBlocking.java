@@ -93,7 +93,7 @@ public class TestFineGrainedBlocking {
             }
 
             oneLockThreads[ex - minExecutors] = (double) measureTime(executorsOneLock);
-            multipleLocksCostOneThread[ex - minExecutors] = (double) measureTime(executorsMultipleLocks);
+            multipleLocksThreads[ex - minExecutors] = (double) measureTime(executorsMultipleLocks);
             xThreadsAxis[ex - minExecutors] = ex;
 
             System.out.println("Threads Measurement: " + ((double) ex/maxExecutors) * 100 + "%");
