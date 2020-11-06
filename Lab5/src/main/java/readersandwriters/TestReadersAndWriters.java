@@ -35,7 +35,7 @@ public class TestReadersAndWriters {
         final int countOfWriterOperations = 10;
         long[][] measurement = new long[writers][readers];
         final long readTime = 1;
-        final long writeTime = 10;
+        final long writeTime = 100;
 
 
         for(int r = minReaders; r<= maxReaders; r++){

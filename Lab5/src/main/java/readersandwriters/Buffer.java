@@ -41,7 +41,7 @@ public class Buffer implements IBuffer{
 
         buffer[index] = value;
         try {
-            Thread.sleep(writeTime);
+            Thread.sleep(0,(int) readTime);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -68,7 +68,7 @@ public class Buffer implements IBuffer{
 
         int result = buffer[index];
         try {
-            Thread.sleep(readTime);
+            Thread.sleep(0,(int) readTime);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
