@@ -3,6 +3,7 @@ package readersandwriters;
 import java.util.concurrent.Semaphore;
 
 public class Buffer implements IBuffer{
+
     private final int[] buffer;
     private final int size;
     private final int[] howManyReadersInField;
@@ -41,7 +42,7 @@ public class Buffer implements IBuffer{
 
         buffer[index] = value;
         try {
-            Thread.sleep(0,(int) readTime);
+            Thread.sleep(0,(int) writeTime);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -65,7 +66,6 @@ public class Buffer implements IBuffer{
             e.printStackTrace();
         }
 
-
         int result = buffer[index];
         try {
             Thread.sleep(0,(int) readTime);
@@ -85,9 +85,7 @@ public class Buffer implements IBuffer{
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
         return result;
-
     }
 
     @Override

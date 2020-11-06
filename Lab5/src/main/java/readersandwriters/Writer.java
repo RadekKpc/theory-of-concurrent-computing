@@ -4,8 +4,8 @@ import java.util.Random;
 
 public class Writer extends Thread {
 
-    private IBuffer _buf;
-    private int operations;
+    private final IBuffer _buf;
+    private final int operations;
 
     public Writer(IBuffer buffer, int operations){
         super();

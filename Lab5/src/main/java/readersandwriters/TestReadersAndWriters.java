@@ -25,7 +25,7 @@ public class TestReadersAndWriters {
     public static void main(String[] args) {
 
         final int minReaders =10;
-        final int maxReaders = 100;
+        final int maxReaders = 1000;
         final int minWriters = 1;
         final int maxWriters = 10;
         final int writers = maxWriters - minWriters + 1;
@@ -35,7 +35,7 @@ public class TestReadersAndWriters {
         final int countOfWriterOperations = 10;
         long[][] measurement = new long[writers][readers];
         final long readTime = 1;
-        final long writeTime = 100;
+        final long writeTime = 1;
 
 
         for(int r = minReaders; r<= maxReaders; r++){
@@ -101,7 +101,7 @@ public class TestReadersAndWriters {
 // Define range and precision for the function to plot
         Range xRange = new Range(0, X);
         Range yRange = new Range(0, Y);
-        int steps = 50;
+        int steps = 100;
 
 // Create a surface drawing that function
         Shape surface = Builder.buildOrthonormal(new OrthonormalGrid(xRange, steps,yRange,steps), mapper);
