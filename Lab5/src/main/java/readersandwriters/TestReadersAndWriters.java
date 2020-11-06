@@ -34,8 +34,8 @@ public class TestReadersAndWriters {
         final int countOfReaderOperations = 10;
         final int countOfWriterOperations = 10;
         long[][] measurement = new long[writers][readers];
-        final long readTime = 10;
-        final long writeTime = 100;
+        final long readTime = 1;
+        final long writeTime = 10;
 
 
         for(int r = minReaders; r<= maxReaders; r++){
@@ -53,7 +53,7 @@ public class TestReadersAndWriters {
 
                 measurement[w - minWriters][r - minReaders] = measureTime(threads);
             }
-            System.out.println(((double)r/readers)*100 + "%");
+            System.out.println(((double)r/maxReaders)*100 + "%");
         }
 
         create3dPlot(measurement,writers,readers,"The time in function of readers and writers");
@@ -99,11 +99,12 @@ public class TestReadersAndWriters {
         };
 
 // Define range and precision for the function to plot
-        Range range = new Range(0, max(X,Y));
+        Range xRange = new Range(0, X);
+        Range yRange = new Range(0, Y);
         int steps = 50;
 
 // Create a surface drawing that function
-        Shape surface = Builder.buildOrthonormal(new OrthonormalGrid(range, steps), mapper);
+        Shape surface = Builder.buildOrthonormal(new OrthonormalGrid(xRange, steps,yRange,steps), mapper);
         surface.setFaceDisplayed(true);
         surface.setColorMapper(new ColorMapper(new ColorMapRainbow(), surface.getBounds().getZmin(), surface.getBounds().getZmax(), new Color(1, 1, 1, .5f)));
         surface.setWireframeDisplayed(false);
