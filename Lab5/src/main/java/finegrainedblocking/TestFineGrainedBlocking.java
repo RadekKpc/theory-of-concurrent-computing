@@ -17,14 +17,13 @@ import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import static java.lang.Math.max;
-import static java.lang.Math.min;
 
 public class TestFineGrainedBlocking {
 
     public static void main(String[] args) {
 
 //        za zasadne uznam zbadanie wydajności list w zależności nie tylko od kosztu ale również od ilośći wątków obsługujących ta listę, gdyż dla jedengo wątku nie ma to sensu,
-//        zajmuje on po porstu cała kolejke, przewaga kolejni z wieloma blokadami polega włąsśnie na wielodostepie zatem zbadam tez w zaleznosci od roznej liczby wątków.
+//        zajmuje on po porstu cała kolejke, przewaga kolejki z wieloma blokadami polega właśnie na wielodostepie zatem zbadam tez zaleznosc czasu od roznej liczby wątków.
 
 //        Global Parameters
         final int operations = 1;

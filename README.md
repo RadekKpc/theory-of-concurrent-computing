@@ -1,3 +1,4 @@
+# Jeśli kożystasz daj gwiazdkę :D
 # theory-of-concurrent-computing
 ### Background
 This repository contains work from the theory of concurrent computing classes at the University of Science and Technology in Cracow (AGH Kraków).
