@@ -11,7 +11,9 @@ The subject obtains the following topics:
 * Buffer implementation
 * Pipeline computing with buffer
 * Compare Java Concurrency Utilities and standard java solution at produces and consumers problem.
-
+* The Five Philosophers problem (three different solutions)
+* The readers-writers problem.
+* Fine grained locking
 ### Authors
 > *Radosław Kopeć*
 
@@ -34,3 +36,12 @@ The subject obtains the following topics:
 * [Labolatory 4](https://github.com/RadekKpc/theory-of-concurrent-computing/tree/main/Lab4/src)
   - [raport](https://github.com/RadekKpc/theory-of-concurrent-computing/blob/main/raports/TW-Lab4-Kope%C4%87.pdf)
   - Compare Java Concurrency Utilities and Standard java solution at produces and consumers problem. Implementation with 3D charts drawing, time measurement.
+* [Labolatory 5](https://github.com/RadekKpc/theory-of-concurrent-computing/tree/main/Lab5)
+  - [raport](https://github.com/RadekKpc/theory-of-concurrent-computing/blob/main/raports/TW-Lab5-Kope%C4%87.pdf)
+  - The readers-writers problem.
+  - Fine grained locking
+  - Compare the fine grained locking with the one lock for one list.
+* [Labolatory 6](https://github.com/RadekKpc/theory-of-concurrent-computing/tree/main/Lab6/src/philosophers)
+    - The Five Philosophers problem (three different solutions)
+	- Compare solutions above.
+  
