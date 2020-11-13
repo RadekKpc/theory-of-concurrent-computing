@@ -1,8 +1,9 @@
 package philosophers.symetric;
 
+import org.math.plot.Plot2DPanel;
+
+import javax.swing.*;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 
 public class Problem {
@@ -24,7 +25,12 @@ public class Problem {
         Philosopher phil4 = new Philosopher(fork4,fork5,"Fourth",dinnerSize,thinkTImeMs,eatTimeMs,"\u001B[32m");
         Philosopher phil5 = new Philosopher(fork5,fork1,"Fifth",dinnerSize,thinkTImeMs,eatTimeMs,"\u001B[31m");
 
-        List<Thread> threads = Arrays.asList(phil1,phil2,phil3,phil4,phil5);
+        List<Thread> threads = new ArrayList<Thread>();
+        threads.add(phil1);
+        threads.add(phil2);
+        threads.add(phil3);
+        threads.add(phil4);
+        threads.add(phil5);
 
         long time = measureTime(threads);
         System.out.println(time/1000000 + "ms");
@@ -48,4 +54,16 @@ public class Problem {
         return System.nanoTime() - startTime;
     }
 
+    private static void draw2DPlots(double[] arguments, double[] values, double[] arguments2, double[] values2, String name, String name2, String plotName){
+
+        Plot2DPanel plot = new Plot2DPanel();
+        // add a line plot to the PlotPanel
+        plot.addLinePlot(name, arguments, values);
+        plot.addLinePlot(name2, arguments2, values2);
+
+        // put the PlotPanel in a JFrame, as a JPanel
+        JFrame frame = new JFrame(plotName);
+        frame.setContentPane(plot);
+        frame.setVisible(true);
+    }
 }

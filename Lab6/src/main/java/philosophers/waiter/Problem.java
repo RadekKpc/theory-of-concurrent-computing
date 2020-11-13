@@ -1,6 +1,6 @@
 package philosophers.waiter;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Problem {
@@ -24,7 +24,12 @@ public class Problem {
         Philosopher phil4 = new Philosopher(fork4,fork5,"Fourth",dinnerSize,thinkTImeMs,eatTimeMs,"\u001B[32m",waiter);
         Philosopher phil5 = new Philosopher(fork5,fork1,"Fifth",dinnerSize,thinkTImeMs,eatTimeMs,"\u001B[31m",waiter);
 
-        List<Thread> threads = Arrays.asList(phil1,phil2,phil3,phil4,phil5);
+        List<Thread> threads = new ArrayList<Thread>();
+        threads.add(phil1);
+        threads.add(phil2);
+        threads.add(phil3);
+        threads.add(phil4);
+        threads.add(phil5);
 
         long time = measureTime(threads);
         System.out.println(time/1000000 + "ms");
