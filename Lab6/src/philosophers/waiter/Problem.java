@@ -16,8 +16,7 @@ public class Problem {
         Fork fork4 = new Fork();
         Fork fork5 = new Fork();
 
-        Waiter waiter = new Waiter();
-        waiter.addForks(new Fork[] {fork1,fork2,fork3,fork4,fork5});
+        Waiter waiter = new Waiter(5);
 
         Philosopher phil1 = new Philosopher(fork1,fork2,"First",dinnerSize,thinkTImeMs,eatTimeMs,"\u001B[36m",waiter);
         Philosopher phil2 = new Philosopher(fork2,fork3,"Second",dinnerSize,thinkTImeMs,eatTimeMs,"\u001B[34m",waiter);

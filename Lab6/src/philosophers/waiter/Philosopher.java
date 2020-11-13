@@ -63,15 +63,15 @@ public class Philosopher extends Thread{
 
             think();
 
-            waiter.askAboutForks(leftFork,rightFork);
-
+            waiter.askAboutPlate();
             leftFork.take();
             rightFork.take();
 
             eat();
 
-            leftFork.put();
             rightFork.put();
+            leftFork.put();
+            waiter.realisePlate();
 
         }
 
