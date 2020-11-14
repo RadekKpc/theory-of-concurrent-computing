@@ -24,10 +24,6 @@ public class Measurements {
         double[] waiterDinner =   dinnerChange.get(2).stream().mapToDouble(Double::doubleValue).toArray();
         double[] xDinner =   dinnerChange.get(3).stream().mapToDouble(Double::doubleValue).toArray();
 
-        System.out.println("ASdas");
-        Arrays.stream(symmetricDinner).forEach(System.out::println);
-
-
         draw2DPlots(xDinner,symmetricDinner,xDinner,twoForksDinner,xDinner,waiterDinner,"Symmetric","Two Forks","Waiter","Time in function of dinner amount");
 
         System.out.println("Measure ThinkTime change");
@@ -121,7 +117,6 @@ public class Measurements {
 //        to visualize infinite
         List finalResultOfSymmetric = Arrays.asList(symmetricResult.stream().map(a -> Objects.requireNonNullElseGet(a, () -> max * 1.5)).toArray());
 
-        System.out.println("max: " + max);
         return List.of(finalResultOfSymmetric, twoForksResult, waiterResult, x);
     }
 
@@ -141,8 +136,6 @@ public class Measurements {
                         Arrays.stream(values2).min().orElse(0)),
                 Arrays.stream(values3).min().orElse(0));
 
-        System.out.println("max2: " + max);
-
         //blue
         plot.addLinePlot(name, arguments, values);
         //red
@@ -150,6 +143,7 @@ public class Measurements {
         // green
         plot.addLinePlot(name3, arguments3, values3);
 
+        // set y-axis boundary
         plot.setFixedBounds(1,min,max);
 
         // put the PlotPanel in a JFrame, as a JPanel
