@@ -114,9 +114,9 @@ public class Measurements {
         }
 
         double max = Math.max(
-                Math.max(symmetricResult.stream().max(Double::compareTo).orElse((double) 0),
-                        twoForksResult.stream().max(Double::compareTo).orElse((double) 0)),
-                waiterResult.stream().max(Double::compareTo).orElse((double) 0));
+                Math.max(symmetricResult.stream().filter(Objects::nonNull).max(Double::compareTo).orElse((double) 0),
+                        twoForksResult.stream().filter(Objects::nonNull).max(Double::compareTo).orElse((double) 0)),
+                waiterResult.stream().filter(Objects::nonNull).max(Double::compareTo).orElse((double) 0));
 
 //        to visualize infinite
         List finalResultOfSymmetric = Arrays.asList(symmetricResult.stream().map(a -> Objects.requireNonNullElseGet(a, () -> max * 1.5)).toArray());
