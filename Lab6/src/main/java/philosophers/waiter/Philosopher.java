@@ -42,7 +42,7 @@ public class Philosopher extends Thread{
             e.printStackTrace();
         }
 
-        System.out.println(COLOR + name + " ate " + (dinnerSize - foodAtPlate) + " time " + ANSI_RESET);
+//        System.out.println(COLOR + name + " ate " + (dinnerSize - foodAtPlate) + " time " + ANSI_RESET);
 
         foodAtPlate --;
 
@@ -75,7 +75,7 @@ public class Philosopher extends Thread{
 
         }
 
-        sayGoodbye();
+//        sayGoodbye();
 
     }
 

@@ -1,14 +1,24 @@
-package philosophers.twoForksSimultaneously;
+package philosophers.symmetric;
 
+import org.math.plot.Plot2DPanel;
+
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Callable;
 
-public class Problem {
+public class SymmetricPhilosophers implements Callable<Long> {
+    int dinnerSize;
+    int eatTimeMs;
+    int thinkTImeMs;
 
-    public static void main(String[] args) {
-        final int dinnerSize = 10;
-        final int eatTimeMs = 10;
-        final int thinkTImeMs = 100;
+    public SymmetricPhilosophers(int dinnerSize, int eatTimeMs, int thinkTImeMs) {
+        this.dinnerSize = dinnerSize;
+        this.eatTimeMs = eatTimeMs;
+        this.thinkTImeMs = thinkTImeMs;
+    }
+
+    public Long  call() throws Exception{
 
         Fork fork1 = new Fork();
         Fork fork2 = new Fork();
@@ -29,8 +39,7 @@ public class Problem {
         threads.add(phil4);
         threads.add(phil5);
 
-        long time = measureTime(threads);
-        System.out.println(time/1000000 + "ms");
+        return measureTime(threads);
     }
 
     private static long measureTime(List<Thread> threads){
@@ -50,5 +59,6 @@ public class Problem {
 
         return System.nanoTime() - startTime;
     }
+
 
 }

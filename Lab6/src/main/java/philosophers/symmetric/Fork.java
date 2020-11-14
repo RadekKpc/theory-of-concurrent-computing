@@ -1,4 +1,4 @@
-package philosophers.symetric;
+package philosophers.symmetric;
 
 import java.util.concurrent.Semaphore;
 

@@ -1,17 +1,22 @@
-package philosophers.symetric;
+package philosophers.twoForksSimultaneously;
 
-import org.math.plot.Plot2DPanel;
-
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Callable;
 
-public class Problem {
+public class TwoForksPhilosophers implements Callable<Long> {
+    int dinnerSize;
+    int thinkTImeMs;
+    int eatTimeMs;
 
-    public static void main(String[] args) {
-        final int dinnerSize = 10;
-        final int eatTimeMs = 10;
-        final int thinkTImeMs = 100;
+    public TwoForksPhilosophers(int dinnerSize, int thinkTImeMs, int eatTimeMs) {
+        this.dinnerSize = dinnerSize;
+        this.thinkTImeMs = thinkTImeMs;
+        this.eatTimeMs = eatTimeMs;
+    }
+
+    @Override
+    public Long call() throws Exception {
 
         Fork fork1 = new Fork();
         Fork fork2 = new Fork();
@@ -32,11 +37,10 @@ public class Problem {
         threads.add(phil4);
         threads.add(phil5);
 
-        long time = measureTime(threads);
-        System.out.println(time/1000000 + "ms");
+        return measureTime(threads);
     }
 
-    private static long measureTime(List<Thread> threads){
+    private long measureTime(List<Thread> threads){
         long startTime = System.nanoTime();
 
         for( Thread thread: threads){
@@ -54,16 +58,4 @@ public class Problem {
         return System.nanoTime() - startTime;
     }
 
-    private static void draw2DPlots(double[] arguments, double[] values, double[] arguments2, double[] values2, String name, String name2, String plotName){
-
-        Plot2DPanel plot = new Plot2DPanel();
-        // add a line plot to the PlotPanel
-        plot.addLinePlot(name, arguments, values);
-        plot.addLinePlot(name2, arguments2, values2);
-
-        // put the PlotPanel in a JFrame, as a JPanel
-        JFrame frame = new JFrame(plotName);
-        frame.setContentPane(plot);
-        frame.setVisible(true);
-    }
 }

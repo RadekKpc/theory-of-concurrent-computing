@@ -1,4 +1,4 @@
-package philosophers.symetric;
+package philosophers.symmetric;
 
 public class Philosopher extends Thread{
     public final String ANSI_RESET = "\u001B[0m";
@@ -40,7 +40,7 @@ public class Philosopher extends Thread{
             e.printStackTrace();
         }
 
-        System.out.println(COLOR + name + " ate " + (dinnerSize - foodAtPlate) + " time " + ANSI_RESET);
+//        System.out.println(COLOR + name + " ate " + (dinnerSize - foodAtPlate) + " time " + ANSI_RESET);
 
         foodAtPlate --;
 
@@ -71,7 +71,7 @@ public class Philosopher extends Thread{
 
         }
 
-        sayGoodbye();
+//        sayGoodbye();
 
     }
 
