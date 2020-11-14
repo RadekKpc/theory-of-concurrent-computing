@@ -92,7 +92,7 @@ public class Measurements {
 
         try {
             for(int i=0;i< measurementsSize;i++){
-                try {symmetricResult.add((double) futuresSymmetric.get(i).get(10,TimeUnit.SECONDS));
+                try {symmetricResult.add((double) futuresSymmetric.get(i).get(1,TimeUnit.SECONDS));
                 }
                 catch (TimeoutException e){
                     symmetricResult.add(null);

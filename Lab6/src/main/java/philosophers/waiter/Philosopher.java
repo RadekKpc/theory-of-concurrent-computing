@@ -28,7 +28,7 @@ public class Philosopher extends Thread{
 
     private void think(){
         try {
-            sleep(thinkTimeMs);
+            sleep(0,thinkTimeMs);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -37,7 +37,7 @@ public class Philosopher extends Thread{
     private void eat(){
 
         try {
-            Thread.sleep(eatTimeMs);
+            Thread.sleep(0,eatTimeMs);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
