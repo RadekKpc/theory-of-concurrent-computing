@@ -18,7 +18,7 @@ public class Measurements {
     public static void main(String[] args) {
 
         System.out.println("Measure Dinner change");
-        List<List<Double>> dinnerChange = measureForParameters(1,10,10,40,40,0,1);
+        List<List<Double>> dinnerChange = measureForParameters(1,10,10,100,100,0,1);
         double[] symmetricDinner =   dinnerChange.get(0).stream().mapToDouble(Double::doubleValue).toArray();
         double[] twoForksDinner =   dinnerChange.get(1).stream().mapToDouble(Double::doubleValue).toArray();
         double[] waiterDinner =   dinnerChange.get(2).stream().mapToDouble(Double::doubleValue).toArray();
@@ -31,7 +31,7 @@ public class Measurements {
         draw2DPlots(xDinner,symmetricDinner,xDinner,twoForksDinner,xDinner,waiterDinner,"Symmetric","Two Forks","Waiter","Time in function of dinner amount");
 
         System.out.println("Measure ThinkTime change");
-        List<List<Double>> thinkTimeChange = measureForParameters(10,1,10,40,40,1,1);
+        List<List<Double>> thinkTimeChange = measureForParameters(10,1,10,100,100,1,1);
         double[] symmetricThinkTime =   thinkTimeChange.get(0).stream().mapToDouble(Double::doubleValue).toArray();
         double[] twoForksThinkTime =   thinkTimeChange.get(1).stream().mapToDouble(Double::doubleValue).toArray();
         double[] waiterThinkTime =   thinkTimeChange.get(2).stream().mapToDouble(Double::doubleValue).toArray();
@@ -40,7 +40,7 @@ public class Measurements {
         draw2DPlots(xDinner,symmetricThinkTime,xThinkTime,twoForksThinkTime,xThinkTime,waiterThinkTime,"Symmetric","Two Forks","Waiter","Time in function of think time");
 
         System.out.println("Measure EatTime change");
-        List<List<Double>> eatTimeChange = measureForParameters(10,10,1,40,40,2,1);
+        List<List<Double>> eatTimeChange = measureForParameters(10,10,1,100,100,2,1);
         double[] symmetricEatTimeChange =   eatTimeChange.get(0).stream().mapToDouble(Double::doubleValue).toArray();
         double[] twoForksEatTimeChange =   eatTimeChange.get(1).stream().mapToDouble(Double::doubleValue).toArray();
         double[] waiterEatTimeChange =   eatTimeChange.get(2).stream().mapToDouble(Double::doubleValue).toArray();
@@ -96,7 +96,7 @@ public class Measurements {
 
         try {
             for(int i=0;i< measurementsSize;i++){
-                try {symmetricResult.add((double) futuresSymmetric.get(i).get(1,TimeUnit.SECONDS));
+                try {symmetricResult.add((double) futuresSymmetric.get(i).get(10,TimeUnit.SECONDS));
                 }
                 catch (TimeoutException e){
                     symmetricResult.add(null);
@@ -121,6 +121,7 @@ public class Measurements {
 //        to visualize infinite
         List finalResultOfSymmetric = Arrays.asList(symmetricResult.stream().map(a -> Objects.requireNonNullElseGet(a, () -> max * 1.5)).toArray());
 
+        System.out.println("max: " + max);
         return List.of(finalResultOfSymmetric, twoForksResult, waiterResult, x);
     }
 
@@ -131,21 +132,25 @@ public class Measurements {
         // blue
 
         double max = Math.max(
-                Math.max(Arrays.stream(arguments).max().orElse(0),
-                        Arrays.stream(arguments).max().orElse(0)),
-                Arrays.stream(arguments).max().orElse(0));
+                Math.max(Arrays.stream(values).max().orElse(0),
+                        Arrays.stream(values2).max().orElse(0)),
+                Arrays.stream(values3).max().orElse(0));
+
         double min = Math.min(
-                Math.min(Arrays.stream(arguments).min().orElse(0),
-                        Arrays.stream(arguments).min().orElse(0)),
-                Arrays.stream(arguments).min().orElse(0));
+                Math.min(Arrays.stream(values).min().orElse(0),
+                        Arrays.stream(values2).min().orElse(0)),
+                Arrays.stream(values3).min().orElse(0));
 
-        plot.setFixedBounds(1,min,max);
+        System.out.println("max2: " + max);
 
+        //blue
         plot.addLinePlot(name, arguments, values);
         //red
         plot.addLinePlot(name2, arguments2, values2);
         // green
         plot.addLinePlot(name3, arguments3, values3);
+
+        plot.setFixedBounds(1,min,max);
 
         // put the PlotPanel in a JFrame, as a JPanel
         JFrame frame = new JFrame(plotName);
