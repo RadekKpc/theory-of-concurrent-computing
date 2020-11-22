@@ -14,6 +14,7 @@ The subject obtains the following topics:
 * The Five Philosophers problem (three different solutions)
 * The readers-writers problem.
 * Fine grained locking
+* Active Object Pattern
 ### Authors
 > *Radosław Kopeć*
 
@@ -44,4 +45,6 @@ The subject obtains the following topics:
 * [Labolatory 6](https://github.com/RadekKpc/theory-of-concurrent-computing/tree/main/Lab6/src/philosophers)
     - The Five Philosophers problem (three different solutions)
 	- Compare solutions above.
+* [Labolatory 7](https://github.com/RadekKpc/theory-of-concurrent-computing/tree/main/Lab7/src)
+    - The Active Object Pattern to solve producers and consumers problem
   
