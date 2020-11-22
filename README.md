@@ -42,7 +42,7 @@ The subject obtains the following topics:
   - The readers-writers problem.
   - Fine grained locking
   - Compare the fine grained locking with the one lock for one list.
-* [Labolatory 6](https://github.com/RadekKpc/theory-of-concurrent-computing/tree/main/Lab6/src/philosophers)
+* [Labolatory 6](https://github.com/RadekKpc/theory-of-concurrent-computing/tree/main/Lab6/src/main/java/philosophers)
     - The Five Philosophers problem (three different solutions)
 	- Compare solutions above.
 * [Labolatory 7](https://github.com/RadekKpc/theory-of-concurrent-computing/tree/main/Lab7/src)
