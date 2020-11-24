@@ -48,30 +48,7 @@ public class MeasureExecutorService {
     private static void draw2DPlot(double[] arguments, double[] values, String name, String plotName){
 
         Plot2DPanel plot = new Plot2DPanel();
-        // add a line plot to the PlotPanel
-        // blue
-
-//        double max = Math.max(
-//                Math.max(Arrays.stream(values).max().orElse(0),
-//                        Arrays.stream(values2).max().orElse(0)),
-//                Arrays.stream(values3).max().orElse(0));
-//
-//        double min = Math.min(
-//                Math.min(Arrays.stream(values).min().orElse(0),
-//                        Arrays.stream(values2).min().orElse(0)),
-//                Arrays.stream(values3).min().orElse(0));
-
-        //blue
         plot.addLinePlot(name, arguments, values);
-        //red
-//        plot.addLinePlot(name2, arguments2, values2);
-//        // green
-//        plot.addLinePlot(name3, arguments3, values3);
-
-        // set y-axis boundary
-//        plot.setFixedBounds(1,min,max);
-
-        // put the PlotPanel in a JFrame, as a JPanel
         JFrame frame = new JFrame(plotName);
         frame.setContentPane(plot);
         frame.setVisible(true);
