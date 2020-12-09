@@ -1,0 +1,14 @@
+{
+  "name": "1b",
+  "version": "1.0.0",
+  "description": "Teooria wspobieznosci zad 1b lab9",
+  "main": "1a.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Kopec Radoslaw",
+  "license": "ISC",
+  "dependencies": {
+    "async": "^3.2.0"
+  }
+}
